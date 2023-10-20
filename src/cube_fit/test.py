@@ -1,4 +1,4 @@
-from plot import *
+from cube_fit.plot import *
 
 
 def add_noise(data: np.ndarray, noise_level: float = 0.1):
