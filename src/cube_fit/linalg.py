@@ -1,5 +1,5 @@
 import numpy as np
-
+import scipy
 
 def plane_of_best_fit_c(points: np.ndarray):
     """
@@ -166,3 +166,9 @@ def line_line_intersection(line1_point, line1_direction, line2_point, line2_dire
         return midpoint
 
     return intersection_point
+
+def nearest_orthogonal_matrix(l1, l2, l3):
+    M = np.vstack((l1,l2,l3)).T
+    U, S, V = np.linalg.svd(M)
+    R = U@V
+    return R
