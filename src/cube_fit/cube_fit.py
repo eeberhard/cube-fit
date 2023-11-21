@@ -1,6 +1,6 @@
-from linalg import *
-from plot import *
-from linalg import *
+from cube_fit.linalg import *
+from cube_fit.plot import *
+from cube_fit.linalg import *
 import state_representation as sr
 from pyquaternion import Quaternion
 
