@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from linalg import *
+from cube_fit.linalg import *
 from cube_fit.cube_fit import find_cube_transform
 
 
