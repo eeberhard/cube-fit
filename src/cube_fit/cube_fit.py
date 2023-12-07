@@ -1,5 +1,6 @@
 from cube_fit.linalg import *
 
+
 def find_cube_transform(face_points_1: np.ndarray, face_points_2: np.ndarray, face_points_3: np.ndarray):
     
     faces = [face_points_1, face_points_2, face_points_3]
@@ -49,7 +50,7 @@ def six_point_cube_transform(face_points_3: np.ndarray, face_points_2: np.ndarra
     From face_points_1, we can get two projections on the previous 2 planes to get the last plane
     The planes are already othorgonal. Simply arrange them in [x.T,y.T,z.T] to get the frame_transform
     '''
-    center_3 , normal_3 = plane_of_best_fit(face_points_3)
+    center_3, normal_3 = plane_of_best_fit(face_points_3)
     face_points_2 = np.vstack([face_points_2, proj_point_on_plane(face_points_2[0], normal_3, center_3)])
     center_2, normal_2 = plane_of_best_fit(face_points_2)
     face_points_1 = np.vstack([face_points_1, proj_point_on_plane(face_points_1[0], normal_3, center_3)])

@@ -1,6 +1,7 @@
 import numpy as np
 import scipy
-from scipy.spatial.transform import Rotation as R
+from scipy.spatial.transform import Rotation
+
 
 def plane_of_best_fit_c(points: np.ndarray):
     """
@@ -199,17 +200,17 @@ def random_point_on_plane(n1, p1):
     return random_point
 
 
-def distance_to_plane(p0,n1,p1):
-    distance_to_plane = np.abs(np.dot(p0 - p1, n1) / np.linalg.norm(n1))
-    print("Distance to the plane:", distance_to_plane)
+def distance_to_plane(p0, n1, p1):
+    dist_to_plane = np.abs(np.dot(p0 - p1, n1) / np.linalg.norm(n1))
+    print("Distance to the plane:", dist_to_plane)
 
 
 def se3_difference(matrix1, matrix2):
     # Extract rotational and translational components from the SE3 matrices
-    rot1 = R.from_matrix(matrix1[:3, :3])
+    rot1 = Rotation.from_matrix(matrix1[:3, :3])
     trans1 = matrix1[:3, 3]
 
-    rot2 = R.from_matrix(matrix2[:3, :3])
+    rot2 = Rotation.from_matrix(matrix2[:3, :3])
     trans2 = matrix2[:3, 3]
 
     # Compute the differences
