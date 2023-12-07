@@ -1,7 +1,7 @@
 from cube_fit.linalg import *
 
 def find_cube_transform(face_points_1: np.ndarray, face_points_2: np.ndarray, face_points_3: np.ndarray):
-
+    
     faces = [face_points_1, face_points_2, face_points_3]
     centers = []
     normals = []
