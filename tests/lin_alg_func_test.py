@@ -52,4 +52,4 @@ zx_points = np.array([
 zx_points = rotate(add_noise(zx_points), rx, ry, rz) * 0.2
 
 # plot all points, planes and lines
-# plot_cube_fit(xy_points, yz_points, zx_points)
+plot_cube_fit(xy_points, yz_points, zx_points)
