@@ -42,6 +42,7 @@ def find_cube_transform(face_points_1: np.ndarray, face_points_2: np.ndarray, fa
 
     return frame_transform
 
+
 def six_point_cube_transform(face_points_3: np.ndarray, face_points_2: np.ndarray, face_points_1: np.ndarray):
     '''
     face_points_3 should contain 3 points in the first plane, 2 for face_points_2 and 1 for face_points_1
