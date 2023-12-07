@@ -1,5 +1,6 @@
 import numpy as np
 import scipy
+from scipy.spatial.transform import Rotation as R
 
 def plane_of_best_fit_c(points: np.ndarray):
     """
@@ -167,8 +168,54 @@ def line_line_intersection(line1_point, line1_direction, line2_point, line2_dire
 
     return intersection_point
 
+
 def nearest_orthogonal_matrix(l1, l2, l3):
     M = np.vstack((l1,l2,l3)).T
     U, S, V = np.linalg.svd(M)
     R = U@V
     return R
+
+
+def proj_point_on_plane(p0, n1, p1):
+    '''
+    p0 is a point to project on the plane
+    n1 is the plane's normal
+    p1 is a point on the plane
+    '''
+    # print("p0: ", p0, ", n1: ", n1, ", p1: ", p1)
+    p1p0 = p0 - p1
+    projp0 = p0 - (np.dot(p1p0, n1) / np.dot(n1, n1)) * n1
+    # print("p1p0: ", p1p0, ", p1projp0: ", (np.dot(p1p0, n1) / np.dot(n1, n1)) * n1, ", projp0: ", projp0)
+    return projp0
+
+
+def random_point_on_plane(n1, p1):
+    distance_limit = 1
+    random_coords = np.random.randn(3)
+    random_direction = random_coords - np.dot(random_coords, n1) / np.dot(n1, n1) * n1
+    random_direction /= np.linalg.norm(random_direction)
+    random_distance = np.random.uniform(0, distance_limit)
+    random_point = p1 + random_distance * random_direction
+    return random_point
+
+
+def distance_to_plane(p0,n1,p1):
+    distance_to_plane = np.abs(np.dot(p0 - p1, n1) / np.linalg.norm(n1))
+    print("Distance to the plane:", distance_to_plane)
+
+
+def se3_difference(matrix1, matrix2):
+    # Extract rotational and translational components from the SE3 matrices
+    rot1 = R.from_matrix(matrix1[:3, :3])
+    trans1 = matrix1[:3, 3]
+
+    rot2 = R.from_matrix(matrix2[:3, :3])
+    trans2 = matrix2[:3, 3]
+
+    # Compute the differences
+    rot_diff = rot1.inv() * rot2
+    trans_diff = trans2 - trans1
+
+    angle = rot_diff.as_rotvec()
+
+    print("Rotation difference (rad): ", np.linalg.norm(angle), " and translation difference (m): ", trans_diff)
