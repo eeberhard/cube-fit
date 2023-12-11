@@ -11,7 +11,7 @@ authors = [
 description = "Find the pose of a cube from a collection of surface points"
 readme = "README.md"
 requires-python = ">=3.7"
-dependencies = ["numpy"]
+dependencies = ["numpy", "scipy"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
