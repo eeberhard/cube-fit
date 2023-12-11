@@ -2,23 +2,6 @@ from cube_fit.cube_fit import *
 import numpy as np
 
 
-def six_point_cube_transform_test(face_points_3: np.ndarray, face_points_2: np.ndarray, face_points_1: np.ndarray):
-    '''
-    face_points_3 should contain 3 points in the first plane, 2 for face_points_2 and 1 for face_points_1
-    From face_points_3, we can get the first plane.
-    From face_points_2 and a projection of a point from face_points_2 on the first plane, we can get the second plane
-    From face_points_1, we can get two projections on the previous 2 planes to get the last plane
-    The planes are already othorgonal. Simply arrange them in [x.T,y.T,z.T] to get the frame_transform
-    '''
-    center_3 , normal_3 = plane_of_best_fit(face_points_3)
-    face_points_2 = np.vstack([face_points_2, proj_point_on_plane(face_points_2[1], normal_3, center_3)])
-    center_2, normal_2 = plane_of_best_fit(face_points_2)
-    face_points_1 = np.vstack([face_points_1, proj_point_on_plane(face_points_1[0], normal_3, center_3)])
-    face_points_1 = np.vstack([face_points_1, proj_point_on_plane(face_points_1[0], normal_2, center_2)])
-    distance_to_plane(face_points_1[1], normal_3, center_3)
-    distance_to_plane(face_points_1[2], normal_2, center_2)
-    return find_cube_transform(face_points_3, face_points_2, face_points_1)
-
 # data of cube on table to compare similarity of results
 face_points_1 = np.array([[-0.03945581769,	-0.03158745261,	0.0001617736816],
                           [-0.02586010583,	-0.04625624184,	-0.0005893974304],
@@ -33,7 +16,7 @@ face_points_3 = np.array([[0.02496873613, -0.01365341988, -0.01078731155],
                           [0.02479365047, -0.01389522632, -0.02556806946],
                           [0.02359494505, -0.03871262625, -0.01087914658]])
 a = find_cube_transform(face_points_1, face_points_2, face_points_3)
-b = six_point_cube_transform_test(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
+b = six_point_cube_transform(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
 se3_difference(a,b)
 
 # manufactured data for correctness
@@ -53,7 +36,7 @@ face_points_3 = np.array([
     [2,0,1]
 ])
 a = find_cube_transform(face_points_1, face_points_2, face_points_3)
-b = six_point_cube_transform_test(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
+b = six_point_cube_transform(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
 se3_difference(a,b)
 
 # data of cube on MiR 
@@ -73,6 +56,6 @@ face_points_3 = np.array([[0.02883716861, -0.01707960727, -0.007740744591],
                           [0.02771588624, -0.04182889291, -0.007894488335]])
 
 a = find_cube_transform(face_points_1, face_points_2, face_points_3)
-b = six_point_cube_transform_test(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
+b = six_point_cube_transform(face_points_1[0:3], face_points_2[0:2], face_points_3[0:1])
 se3_difference(a,b)
 

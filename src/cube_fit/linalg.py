@@ -182,10 +182,8 @@ def proj_point_on_plane(p0, n1, p1):
     n1 is the plane's normal
     p1 is a point on the plane
     '''
-    # print("p0: ", p0, ", n1: ", n1, ", p1: ", p1)
     p1p0 = p0 - p1
     projp0 = p0 - (np.dot(p1p0, n1) / np.dot(n1, n1)) * n1
-    # print("p1p0: ", p1p0, ", p1projp0: ", (np.dot(p1p0, n1) / np.dot(n1, n1)) * n1, ", projp0: ", projp0)
     return projp0
 
 
@@ -200,8 +198,7 @@ def random_point_on_plane(n1, p1):
 
 
 def distance_to_plane(p0, n1, p1):
-    dist_to_plane = np.abs(np.dot(p0 - p1, n1) / np.linalg.norm(n1))
-    print("Distance to the plane:", dist_to_plane)
+    return np.abs(np.dot(p0 - p1, n1) / np.linalg.norm(n1))
 
 
 def se3_difference(matrix1, matrix2):
@@ -218,4 +215,4 @@ def se3_difference(matrix1, matrix2):
 
     angle = rot_diff.as_rotvec()
 
-    print("Rotation difference (rad): ", np.linalg.norm(angle), " and translation difference (m): ", trans_diff)
+    return trans_diff, np.linalg.norm(angle)np.linalg.norm(angle), 
