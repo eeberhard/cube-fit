@@ -215,4 +215,4 @@ def se3_difference(matrix1, matrix2):
 
     angle = rot_diff.as_rotvec()
 
-    return trans_diff, np.linalg.norm(angle)np.linalg.norm(angle), 
+    return trans_diff, np.linalg.norm(angle)
